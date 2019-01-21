@@ -1,13 +1,33 @@
 import React, { Component } from 'react'
 import './App.css'
 
-const InfoCard = props => {
-  return (
-    <div style={styles.card}>
-      <h1>mkha.info</h1>
-      <h2 style={{backgroundColor: 'blue'}}><a href="mailto:contact@mkha.info">contact@mkha.info</a></h2>
-    </div>
-  )
+class InfoCard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      w: 0,
+    }
+  }
+
+  cardStyles = () => {
+    return {
+      width: `${this.state.w}px`
+    }
+  }
+
+  componentDidMount() {
+    let w = document.getElementById('fit').offsetWidth
+    this.setState({w})
+  }
+  render() {
+    return (
+      <div style={{...styles.card, ...this.cardStyles()}}>
+        <h1>mkha.info</h1>
+        <h2><span id="fit"><a href="mailto:contact@mkha.info">contact@mkha.info</a>
+        </span></h2>
+      </div>
+    )
+  }
 }
 
 class Slides extends Component {
@@ -41,7 +61,7 @@ class Slides extends Component {
     }
   }
 
-  columns = () => {
+  columnStyles = () => {
     const n = Math.floor(window.innerWidth / 300)
     let total = n % 2 === 0 ? n : n - 1 > 0 ? n - 1 : n,
       gutter = window.innerWidth / (total * 10),
@@ -60,7 +80,7 @@ class Slides extends Component {
 
   render() {
     return(
-      <div style={{...styles.slides, ...this.columns()}}>
+      <div style={{...styles.slides, ...this.columnStyles()}}>
         {this.state.slides}
       </div>
     )
@@ -126,9 +146,8 @@ const styles = {
     position: 'sticky',
     top: '20px',
     margin: 0,
-    padding: '5vw',
-    width: '50%',
-    backgroundColor: 'cyan',
+    padding: '2vw 5vw 2vw 2vw', // top right bottom left
+    backgroundColor: 'white',
   },
 
   slides: {
