@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import './App.css'
 
+//generates random colors in rgb(n, n, n) notation
+const aColor = () => {
+  let rgb = []
+  while (rgb.length < 3) {
+    rgb.push(Math.round(Math.random()*255))
+  }
+  return `rgb(${rgb.join(', ')})`
+}
+
 class InfoCard extends Component {
   constructor(props) {
     super(props)
@@ -36,29 +45,29 @@ class Slides extends Component {
     this.state = {
       slides: (() => {
         //contains a fixed number of slides
-        const aColor = () => {
-          let rgb = []
-          while (rgb.length < 3) {
-            rgb.push(Math.round(Math.random()*255))
-          }
-          return `rgb(${rgb.join(', ')})`
-        }
+
 
         let slides = []
         // pushes n divs (slide) into array (slides)
         for (let i=0 ; i < 100 ; i++) {
           slides.push(
             <div key={i}
+              className={'slide'}
+              onClick={this.handleClick}
               style={{
               backgroundColor: aColor(),
               gridColumnEnd: 'span 1',
               placeSelf: 'stretch',
-            }} />
+            }}></div>
           )
         }
         return slides
       })(),
     }
+  }
+
+  handleClick = e => {
+    return console.log(e.target)
   }
 
   columnStyles = () => {
@@ -77,6 +86,11 @@ class Slides extends Component {
     }
   }
 
+  componentDidMount() {
+    //document.querySelector('.slide').addEventListener('click', this.handleClick(), false)
+    //let a = document.getElementsByClassName('slide')
+    //return console.log(a)
+  }
 
   render() {
     return(
