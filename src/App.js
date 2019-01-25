@@ -38,14 +38,20 @@ class InfoCard extends Component {
     return (
       this.props.displayModal ?
       <div style={{...styles.card, ...this.cardStyles()}}>
-        <h1>title <button onClick={this.closeModal}>(close)</button> </h1>
-        <h2><span id="fit"><a href="mailto:contact@mkha.info">contact@mkha.info</a>
-        </span></h2>
-      </div>
-      :
+        <span id="fit"><h1 style={styles.title} >
+          <button style={styles.button} onClick={this.closeModal}>
+            back
+          </button>
+          a color
+        </h1>
+        <h2>
+          {this.props.content}
+        </h2></span>
+      </div> :
       <div style={{...styles.card, ...this.cardStyles()}}>
         <h1>mkha.info</h1>
-        <h2><span id="fit"><a href="mailto:contact@mkha.info">contact@mkha.info</a>
+        <h2><span id="fit">
+          <a href="mailto:contact@mkha.info">contact@mkha.info</a>
         </span></h2>
       </div>
     )
@@ -56,6 +62,7 @@ class Slides extends Component {
   constructor(props){
     super(props)
     this.state = {
+      content: '',
       slides: (() => {
         //contains a fixed number of slides
 
@@ -81,17 +88,19 @@ class Slides extends Component {
   }
 
   displayModal = e => {
+    this.props.getContent(e.target.style.backgroundColor)
     this.props.toggleModal(true)
-    return console.log(e.target)
+    console.log(e.target.style.backgroundColor)
   }
 
   columnStyles = () => {
     const n = Math.floor(window.innerWidth / 300)
+
     let total = n % 2 === 0 ? n : n - 1 > 0 ? n - 1 : n,
       gutter = window.innerWidth / (total * 10),
       margin = gutter * 2 + 100,
       width = (window.innerWidth - (gutter * (total - 1)) - margin) / total
-      //width = (window.innerWidth - 100) / total
+
     return {
       gridTemplateColumns: `repeat(${total}, ${width}px)`,
       gridAutoRows: `${width}px`,
@@ -127,7 +136,20 @@ class Modal extends Component {
       this.props.toggleModal(false)
       console.log(modal.style.height)
     }
+  }
 
+  adjustTop = () => {
+    let modalTop = document.scrollingElement.scrollTop,
+      modal = document.querySelector('#modal')
+    if ( modal && modal.style.top !== `${modalTop}px`) {
+      this.setState({modalTop})
+      modal.style.top = `${modalTop}px`
+    }
+  }
+
+  insertContent = () => {
+    let content = document.querySelector('#content')
+    if (content) {content.style.backgroundColor = this.props.content}
   }
 
   componentDidMount() {
@@ -135,12 +157,8 @@ class Modal extends Component {
   }
 
   componentDidUpdate() {
-    let modalTop = document.scrollingElement.scrollTop
-      + window.innerHeight * 0.025, modal = document.querySelector('#modal')
-    if (modal && this.state.modalTop !== modalTop) {
-      modal.style.top = `${modalTop}px`
-      this.setState({modalTop})
-    }
+    this.insertContent()
+    this.adjustTop()
   }
 
   componentWillUnmount() {
@@ -150,7 +168,9 @@ class Modal extends Component {
   render(){
     return (
       this.props.displayModal ?
-        <div id='modal' style={styles.modal}/> :
+        <div id='modal' style={{...styles.flexContainer, ...styles.modal}}>
+          <div id='content' style={styles.modalContent}/>
+        </div> :
         null
     )
   }
@@ -163,6 +183,7 @@ export default class App extends Component {
       w: window.innerWidth,
       h: window.innerHeight,
       displayModal: false,
+      modalContent: '',
     }
   }
 
@@ -173,6 +194,10 @@ export default class App extends Component {
 
   toggleModal = displayModal => {
     this.setState({displayModal})
+  }
+
+  getContent = modalContent => {
+    this.setState({modalContent})
   }
 
   componentDidMount() {
@@ -187,13 +212,16 @@ export default class App extends Component {
 
     return (
       <div id='scroll' style={styles.container}>
-        <InfoCard displayModal={this.state.displayModal}
+        <InfoCard content={this.state.modalContent}
+          displayModal={this.state.displayModal}
           toggleModal={this.toggleModal}
           />
-        <div style={{...styles.container, ...styles.slideContainer}}>
-          <Modal displayModal={this.state.displayModal}
+        <div style={{...styles.container, ...styles.flexContainer}}>
+          <Modal content={this.state.modalContent}
+            displayModal={this.state.displayModal}
             toggleModal={this.toggleModal} />
-          <Slides toggleModal={this.toggleModal} />
+          <Slides getContent={this.getContent}
+            toggleModal={this.toggleModal} />
         </div>
       </div>
     )
@@ -210,23 +238,34 @@ const styles = {
 
   },
 
-  slideContainer: {
+  flexContainer: {
     display: 'flex',
     justifyContent: 'center',
   },
 
   card: {
     zIndex: 5,
-    //position: '-webkit-sticky',
     position: 'sticky',
-    top: '20px',
+    top: '5vh',
     margin: 0,
     padding: '2vw 5vw 2vw 2vw', // top right bottom left
     backgroundColor: 'white',
   },
 
+  title: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  button: {
+    marginRight: '1.5vw',
+    padding: '0.2vw',
+    fontWeight: 'bold',
+    borderRadius: '20%',
+    backgroundColor: 'white',
+  },
+
   slides: {
-    //backgroundColor: 'cyan',
     display: 'inline-grid',
     gridAutoFlow: 'row',
     zIndex: 0,
@@ -235,12 +274,16 @@ const styles = {
 
   modal: {
     zIndex: 3,
-    backgroundColor: 'chartreuse',
-    width: '93vw',
-    height: '95vh',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    width: '98vw',
+    height: '100vh',
     position: 'absolute',
-    top: '2.5vh',
-    opacity: 0.7,
+    alignItems: 'center',
+  },
 
+  modalContent: {
+    backgroundColor: 'blue',
+    width: '90vw',
+    height: '90vh',
   },
 }
