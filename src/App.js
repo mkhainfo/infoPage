@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
 
-//generates random colors in rgb(n, n, n) notation
 const aColor = () => {
+  //generates random colors in rgb(n, n, n) notation
+  //for dev purposes
   let rgb = []
   while (rgb.length < 3) {
     rgb.push(Math.round(Math.random()*255))
@@ -64,12 +65,9 @@ class Slides extends Component {
     this.state = {
       content: '',
       slides: (() => {
-        //contains a fixed number of slides
-
-
-        let slides = []
-        // pushes n divs (slide) into array (slides)
-        for (let i=0 ; i < 100 ; i++) {
+        // pushes n '.slide' divs into 'slides' array
+        let slides = [], n = 100
+        for (let i=0 ; i < n ; i++) {
           slides.push(
             <button key={i}
               className={'slide'}
@@ -79,6 +77,7 @@ class Slides extends Component {
               gridColumnEnd: 'span 1',
               placeSelf: 'stretch',
               zIndex: 1,
+              border: 'none',
             }}/>
           )
         }
@@ -168,10 +167,9 @@ class Modal extends Component {
   render(){
     return (
       this.props.displayModal ?
-        <div id='modal' style={{...styles.flexContainer, ...styles.modal}}>
+        <div id='modal' className='fade' style={{...styles.flexContainer, ...styles.modal}}>
           <div id='content' style={styles.modalContent}/>
-        </div> :
-        null
+        </div> : null
     )
   }
 }
@@ -207,21 +205,25 @@ export default class App extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize)
   }
-  // {gridTemplateColumns: this.nCol()}
-  render() {
 
+  render() {
     return (
       <div id='scroll' style={styles.container}>
+
         <InfoCard content={this.state.modalContent}
           displayModal={this.state.displayModal}
           toggleModal={this.toggleModal}
           />
+
         <div style={{...styles.container, ...styles.flexContainer}}>
+
           <Modal content={this.state.modalContent}
             displayModal={this.state.displayModal}
             toggleModal={this.toggleModal} />
+
           <Slides getContent={this.getContent}
             toggleModal={this.toggleModal} />
+
         </div>
       </div>
     )
@@ -235,7 +237,6 @@ const styles = {
   	height: 'auto',
     margin: 'auto',
     backgroundColor: 'white',
-
   },
 
   flexContainer: {
@@ -269,7 +270,6 @@ const styles = {
     display: 'inline-grid',
     gridAutoFlow: 'row',
     zIndex: 0,
-
   },
 
   modal: {
@@ -279,6 +279,7 @@ const styles = {
     height: '100vh',
     position: 'absolute',
     alignItems: 'center',
+    boxShadow: '0 0 50vh 50vh rgba(255, 255, 255, 0.5)',
   },
 
   modalContent: {
