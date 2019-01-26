@@ -39,20 +39,20 @@ class InfoCard extends Component {
     return (
       this.props.displayModal ?
       <div style={{...styles.card, ...this.cardStyles()}}>
-        <span id="fit"><h1 style={styles.title} >
+        <h1 style={styles.title} >
           <button style={styles.button} onClick={this.closeModal}>
             back
           </button>
           a color
         </h1>
-        <h2>
+        <h2><span id="fit">
           {this.props.content}
-        </h2></span>
+        </span></h2>
       </div> :
       <div style={{...styles.card, ...this.cardStyles()}}>
-        <h1>mkha.info</h1>
+        <h1>infoPage</h1>
         <h2><span id="fit">
-          <a href="mailto:contact@mkha.info">contact@mkha.info</a>
+          randomlySelectedColors
         </span></h2>
       </div>
     )
