@@ -1,5 +1,5 @@
 # infopage
-a gallery
+a gallery<br>
 example @ https://mkhainfo.github.io/infoPage/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

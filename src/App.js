@@ -12,47 +12,30 @@ const aColor = () => {
 }
 
 class InfoCard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      w: 0,
-    }
-  }
-
-  cardStyles = () => {
-    return {
-      width: `${this.state.w}px`
-    }
-  }
 
   closeModal = e => {
     this.props.toggleModal(false)
     console.log('close')
   }
 
-  componentDidMount() {
-    let w = document.getElementById('fit').offsetWidth
-    this.setState({w})
-  }
-
   render() {
     return (
       this.props.displayModal ?
-      <div style={{...styles.card, ...this.cardStyles()}}>
+      <div style={styles.card}>
         <h1 style={styles.title} >
           <button style={styles.button} onClick={this.closeModal}>
             back
           </button>
-          a color
+          this color is
         </h1>
         <h2><span id="fit">
           {this.props.content}
         </span></h2>
       </div> :
-      <div style={{...styles.card, ...this.cardStyles()}}>
-        <h1>infoPage</h1>
+      <div style={styles.card}>
+        <h1>color page</h1>
         <h2><span id="fit">
-          randomlySelectedColors
+          a temporary field of randomly selected colors
         </span></h2>
       </div>
     )
@@ -251,6 +234,8 @@ const styles = {
     margin: 0,
     padding: '2vw 5vw 2vw 2vw', // top right bottom left
     backgroundColor: 'white',
+    minWidth: '300px',
+    maxWidth: '33vw'
   },
 
   title: {
