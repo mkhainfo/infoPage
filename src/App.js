@@ -21,9 +21,12 @@ class InfoCard extends Component {
   render() {
     return (
       this.props.displayModal ?
-      <div style={styles.card}>
+      <figcaption style={styles.card}>
         <h1 style={styles.title} >
-          <button style={styles.button} onClick={this.closeModal}>
+          <button
+            aria-label='return to gallery'
+            style={styles.button}
+            onClick={this.closeModal}>
             back
           </button>
           this color is
@@ -31,13 +34,13 @@ class InfoCard extends Component {
         <h2><span id="fit">
           {this.props.content}
         </span></h2>
-      </div> :
-      <div style={styles.card}>
+      </figcaption> :
+      <header role='banner' style={styles.card}>
         <h1>color page</h1>
         <h2><span id="fit">
           a temporary field of randomly selected colors
         </span></h2>
-      </div>
+    </header>
     )
   }
 }
@@ -52,7 +55,10 @@ class Slides extends Component {
         let slides = [], n = 100
         for (let i=0 ; i < n ; i++) {
           slides.push(
-            <button key={i}
+            <button
+              aria-label='thumbnail image'
+              alt='color'
+              key={i}
               className={'slide'}
               onClick={this.displayModal}
               style={{
@@ -94,9 +100,9 @@ class Slides extends Component {
 
   render() {
     return(
-      <div style={{...styles.slides, ...this.columnStyles()}}>
+      <main role='main' style={{...styles.slides, ...this.columnStyles()}}>
         {this.state.slides}
-      </div>
+      </main>
     )
   }
 }
@@ -150,9 +156,9 @@ class Modal extends Component {
   render(){
     return (
       this.props.displayModal ?
-        <div id='modal' className='fade' style={{...styles.flexContainer, ...styles.modal}}>
+        <figure id='modal' className='fade' style={{...styles.flexContainer, ...styles.modal}}>
           <div id='content' style={styles.modalContent}/>
-        </div> : null
+        </figure> : null
     )
   }
 }
