@@ -37,17 +37,14 @@ class InfoCard extends Component {
             onClick={this.closeModal}>
             back
           </button>
-          this color is
+          {gallery[this.props.content].title}
         </h1>
-        <h2><span id="fit">
-          {this.props.content}
-        </span></h2>
+        <h2>{gallery[this.props.content].subtitle + ' [' + gallery[this.props.content].year + ']'}</h2>
+        <p> {gallery[this.props.content].description} </p>
       </figcaption> :
       <header role='banner' style={styles.card}>
         <h1>infoPage</h1>
-        <h2><span id="fit">
-          a graphic field of info
-        </span></h2>
+        <h2> a graphic field of info </h2>
     </header>
     )
   }
@@ -156,7 +153,8 @@ class Modal extends Component {
   }
 
   image = () => {
-    let source = gallery[this.props.content].id
+    let source = gallery[this.props.content].id,
+        type = gallery[this.props.content].type
     let style = () => {
       return ({
         height: '100%',
@@ -165,7 +163,7 @@ class Modal extends Component {
     }
     return (
       <img
-      src={require('./gallery/full/F' + source + '.jpg' )}
+      src={require('./gallery/full/F' + source + '.' + type )}
       alt='this will be a full sized version'
       style={{style}}/>
     )

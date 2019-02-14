@@ -14,7 +14,7 @@ export const gallery = [
     title: 'chain smoke',
     subtitle: 'detail',
     year: 2011,
-    description: 'landscape art composed of a series of circles,\n made with concentric rings of gravel and cigarette butts, \n cast along the arc of a discarded cigarette butt'
+    description: 'landscape art composed of a series of circles, made with concentric rings of gravel and cigarette butts, cast along the arc of a discarded cigarette butt'
   },
   {
     id: 'chain03',
@@ -23,5 +23,13 @@ export const gallery = [
     subtitle: 'process detail',
     year: 2011,
     description: 'close up of a ring cigarette butts during construction'
+  },
+  {
+    id: 'live01',
+    type: 'gif',
+    title: 'living bazaar',
+    subtitle: 'concept animation',
+    year: 2014,
+    description: 'an attempt to describing a modular system where a building can expand and contract with the needs of its residents'
   },
 ]
