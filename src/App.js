@@ -44,9 +44,9 @@ class InfoCard extends Component {
         </span></h2>
       </figcaption> :
       <header role='banner' style={styles.card}>
-        <h1>color page</h1>
+        <h1>infoPage</h1>
         <h2><span id="fit">
-          a temporary field of randomly selected colors
+          a graphic field of info
         </span></h2>
     </header>
     )
@@ -68,6 +68,7 @@ class Slides extends Component {
           slides.push(
             <button
               aria-label={description}
+              id={i}
               key={i}
               className={'slide'}
               onClick={this.displayModal}
@@ -92,9 +93,9 @@ class Slides extends Component {
 //C:\Users\n.n\Desktop\1901\info\src\gallery\thumb\Tcabin01.jpg
 // {`.\gallery\thumb\T${gallery[i].id}.jpg`}
   displayModal = e => {
-    this.props.getContent(e.target.style.backgroundColor)
+    this.props.getContent(e.target.id)
     this.props.toggleModal(true)
-    console.log(e.target)
+    //console.log(e.target.id)
   }
 
   columnStyles = () => {
@@ -154,9 +155,37 @@ class Modal extends Component {
     }
   }
 
+  image = () => {
+    let source = gallery[this.props.content].id
+    let style = () => {
+      return ({
+        height: '100%',
+        width: 'auto',
+      })
+    }
+    return (
+      <img
+      src={require('./gallery/full/F' + source + '.jpg' )}
+      alt='this will be a full sized version'
+      style={{style}}/>
+    )
+  }
+
   insertContent = () => {
     let content = document.querySelector('#content')
-    if (content) {content.style.backgroundColor = this.props.content}
+    if (content) {
+      let source = gallery[this.props.content]
+      console.log(source.id)
+      return source.id
+    }
+  }
+  contentType = () => {
+    let content = document.querySelector('#content')
+    if (content) {
+      let source = gallery[this.props.content]
+      console.log(source.type)
+      return source.type
+    }
   }
 
   componentDidMount() {
@@ -164,7 +193,7 @@ class Modal extends Component {
   }
 
   componentDidUpdate() {
-    this.insertContent()
+    //this.insertContent()
     this.adjustTop()
   }
 
@@ -173,11 +202,15 @@ class Modal extends Component {
   }
 
   render(){
+    //let source = this.insertContent(), type = this.contentType()
+    //console.log([source,type])
+    //let type = gallery[this.props.content].type
+    //src={require('./gallery/full/F' + source + '.' + type )}
     return (
       this.props.displayModal ?
         <figure id='modal' className='fade' style={{...styles.flexContainer, ...styles.modal}}>
           <div id='content' style={styles.modalContent}>
-            <img alt='this will be a full sized version'/>
+            {this.image()}
           </div>
         </figure> : null
     )

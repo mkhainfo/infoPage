@@ -2,6 +2,7 @@ export const gallery = [
   {
     id: 'chain01',
     type: 'jpg',
+    //orientation: '',
     title: 'chain smoke',
     subtitle: 'main image',
     year: 2011,
