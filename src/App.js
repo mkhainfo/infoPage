@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
 import './App.css'
+import {gallery} from './gallery.js'
+
+const importAll = r => {
+  return r.keys().forEach(r)
+}
+
+importAll(require.context('./gallery', true, /\.(jpe?g|gif)$/))
+
+console.log(gallery)
 
 const aColor = () => {
   //generates random colors in rgb(n, n, n) notation
@@ -15,7 +24,6 @@ class InfoCard extends Component {
 
   closeModal = e => {
     this.props.toggleModal(false)
-    console.log('close')
   }
 
   render() {
@@ -52,12 +60,14 @@ class Slides extends Component {
       content: '',
       slides: (() => {
         // pushes n '.slide' divs into 'slides' array
-        let slides = [], n = 100
+        let slides = [], n = gallery.length
         for (let i=0 ; i < n ; i++) {
+          let description = `${gallery[i].title} ${gallery[i].subtitle}`
+          let source = gallery[i].id
+          //let sss = './gallery/thumb/Tchain01.jpg'
           slides.push(
             <button
-              aria-label='thumbnail image'
-              alt='color'
+              aria-label={description}
               key={i}
               className={'slide'}
               onClick={this.displayModal}
@@ -67,18 +77,24 @@ class Slides extends Component {
               placeSelf: 'stretch',
               zIndex: 1,
               border: 'none',
-            }}/>
+            }}>
+            <img
+              alt={description}
+              style={styles.image}
+              src={require('./gallery/thumb/T' + source + '.jpg')}/>
+          </button>
           )
         }
         return slides
       })(),
     }
   }
-
+//C:\Users\n.n\Desktop\1901\info\src\gallery\thumb\Tcabin01.jpg
+// {`.\gallery\thumb\T${gallery[i].id}.jpg`}
   displayModal = e => {
     this.props.getContent(e.target.style.backgroundColor)
     this.props.toggleModal(true)
-    console.log(e.target.style.backgroundColor)
+    console.log(e.target)
   }
 
   columnStyles = () => {
@@ -96,6 +112,9 @@ class Slides extends Component {
       marginTop: gutter,
       marginBottom: margin,
     }
+  }
+
+  componentDidMount() {
   }
 
   render() {
@@ -157,7 +176,9 @@ class Modal extends Component {
     return (
       this.props.displayModal ?
         <figure id='modal' className='fade' style={{...styles.flexContainer, ...styles.modal}}>
-          <div id='content' style={styles.modalContent}/>
+          <div id='content' style={styles.modalContent}>
+            <img alt='this will be a full sized version'/>
+          </div>
         </figure> : null
     )
   }
@@ -277,5 +298,10 @@ const styles = {
     backgroundColor: 'blue',
     width: '90vw',
     height: '90vh',
+  },
+
+  image: {
+    height: '100%',
+    width: '100%'
   },
 }
