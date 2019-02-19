@@ -1,25 +1,20 @@
 import React, { Component } from 'react'
 import './App.css'
 import {gallery} from './gallery.js'
+// gallery is an array of objects
+// each object provides the context for one slide
+// for every object in gallery, one slide will be generated
 
+/////
 const importAll = r => {
   return r.keys().forEach(r)
 }
-
+// this imports all image files associated with the objects in gallery
+// necessary for dynamic rendering with webpack
 importAll(require.context('./gallery', true, /\.(jpe?g|gif)$/))
+/////
 
-console.log(gallery)
-
-const aColor = () => {
-  //generates random colors in rgb(n, n, n) notation
-  //for dev purposes
-  let rgb = []
-  while (rgb.length < 3) {
-    rgb.push(Math.round(Math.random()*255))
-  }
-  return `rgb(${rgb.join(', ')})`
-}
-
+/////
 class InfoCard extends Component {
 
   closeModal = e => {
@@ -44,12 +39,14 @@ class InfoCard extends Component {
       </figcaption> :
       <header role='banner' style={styles.card}>
         <h1>infoPage</h1>
-        <h2> a graphic field of info </h2>
+        <h2> contact information </h2>
     </header>
     )
   }
 }
+/////
 
+/////
 class Slides extends Component {
   constructor(props){
     super(props)
@@ -61,7 +58,6 @@ class Slides extends Component {
         for (let i=0 ; i < n ; i++) {
           let description = `${gallery[i].title} ${gallery[i].subtitle}`
           let source = gallery[i].id
-          //let sss = './gallery/thumb/Tchain01.jpg'
           slides.push(
             <button
               aria-label={description}
@@ -70,7 +66,7 @@ class Slides extends Component {
               className={'slide'}
               onClick={this.displayModal}
               style={{
-              backgroundColor: aColor(),
+              backgroundColor: 'white',
               gridColumnEnd: 'span 1',
               placeSelf: 'stretch',
               zIndex: 1,
@@ -78,7 +74,7 @@ class Slides extends Component {
             }}>
             <img
               alt={description}
-              style={styles.image}
+              style={styles.thumbnail}
               src={require('./gallery/thumb/T' + source + '.jpg')}/>
           </button>
           )
@@ -87,8 +83,7 @@ class Slides extends Component {
       })(),
     }
   }
-//C:\Users\n.n\Desktop\1901\info\src\gallery\thumb\Tcabin01.jpg
-// {`.\gallery\thumb\T${gallery[i].id}.jpg`}
+
   displayModal = e => {
     this.props.getContent(e.target.id)
     this.props.toggleModal(true)
@@ -123,29 +118,36 @@ class Slides extends Component {
     )
   }
 }
+/////
 
+/////
 class Modal extends Component {
   constructor(props){
     super(props)
     this.state = {
       modalTop: 0,
+      contentHeight: 0,
     }
   }
 
-  handleScroll = e => {
-    let test = Math.abs(this.state.modalTop - e.pageY)
+  /*handleScroll = e => {
+    let movement = Math.abs(this.state.modalTop - e.pageY)
 
-    if ( test  > window.innerHeight * 0.66
+    if ( movement  > window.innerHeight * 0.66
     && this.props.displayModal ) {
-      let modal = document.querySelector('#modal')
+      //let modal = document.querySelector('#modal')
       this.props.toggleModal(false)
-      console.log(modal.style.height)
+      //console.log(modal.style.height)
     }
-  }
+  }*/
 
   adjustTop = () => {
-    let modalTop = document.scrollingElement.scrollTop,
+    const nearestTenth = n => {
+      return Math.round(n/10) * 10
+    }
+    let modalTop = nearestTenth(document.scrollingElement.scrollTop),
       modal = document.querySelector('#modal')
+
     if ( modal && modal.style.top !== `${modalTop}px`) {
       this.setState({modalTop})
       modal.style.top = `${modalTop}px`
@@ -155,35 +157,13 @@ class Modal extends Component {
   image = () => {
     let source = gallery[this.props.content].id,
         type = gallery[this.props.content].type
-    let style = () => {
-      return ({
-        height: '100%',
-        width: 'auto',
-      })
-    }
+
     return (
       <img
       src={require('./gallery/full/F' + source + '.' + type )}
       alt='this will be a full sized version'
-      style={{style}}/>
+      style={styles.modalImage}/>
     )
-  }
-
-  insertContent = () => {
-    let content = document.querySelector('#content')
-    if (content) {
-      let source = gallery[this.props.content]
-      console.log(source.id)
-      return source.id
-    }
-  }
-  contentType = () => {
-    let content = document.querySelector('#content')
-    if (content) {
-      let source = gallery[this.props.content]
-      console.log(source.type)
-      return source.type
-    }
   }
 
   componentDidMount() {
@@ -191,7 +171,6 @@ class Modal extends Component {
   }
 
   componentDidUpdate() {
-    //this.insertContent()
     this.adjustTop()
   }
 
@@ -200,13 +179,9 @@ class Modal extends Component {
   }
 
   render(){
-    //let source = this.insertContent(), type = this.contentType()
-    //console.log([source,type])
-    //let type = gallery[this.props.content].type
-    //src={require('./gallery/full/F' + source + '.' + type )}
     return (
       this.props.displayModal ?
-        <figure id='modal' className='fade' style={{...styles.flexContainer, ...styles.modal}}>
+        <figure id='modal' style={{...styles.modal}}>
           <div id='content' style={styles.modalContent}>
             {this.image()}
           </div>
@@ -214,7 +189,9 @@ class Modal extends Component {
     )
   }
 }
+/////
 
+/////
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -270,7 +247,9 @@ export default class App extends Component {
     )
   }
 }
+/////
 
+/////
 const styles = {
 
   container: {
@@ -290,6 +269,7 @@ const styles = {
     position: 'sticky',
     top: '5vh',
     margin: 0,
+    marginBottom: '15px',
     padding: '2vw 5vw 2vw 2vw', // top right bottom left
     backgroundColor: 'white',
     minWidth: '300px',
@@ -315,24 +295,37 @@ const styles = {
     zIndex: 0,
   },
 
-  modal: {
-    zIndex: 3,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    width: '98vw',
-    height: '100vh',
-    position: 'absolute',
-    alignItems: 'center',
-    boxShadow: '0 0 50vh 50vh rgba(255, 255, 255, 0.5)',
-  },
-
-  modalContent: {
-    backgroundColor: 'blue',
-    width: '90vw',
-    height: '90vh',
-  },
-
-  image: {
+  thumbnail: {
     height: '100%',
     width: '100%'
   },
+
+  modal: {
+    zIndex: 3,
+    backgroundColor: 'cyan',
+    width: '98vw',
+    position: 'absolute',
+    display: 'flex',
+    marginTop: '30vh',
+  },
+
+  modalContent: {
+    //backgroundColor: 'blue',
+    flex: '0 1 auto',
+    display: 'flex',
+    position: 'absolute',
+    minWidth: '90vw',
+    //maxWidth: '90vw',
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    boxShadow: '0 0 50vh 50vh rgba(255, 255, 255, 0.5)',
+    pointerEvents: 'none'
+
+  },
+
+  modalImage: {
+    flex: '0 1 auto',
+    maxWidth: '100%',
+    pointerEvents: 'auto'
+  }
 }
