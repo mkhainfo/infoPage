@@ -15,6 +15,27 @@ importAll(require.context('./gallery', true, /\.(jpe?g|gif)$/))
 /////
 
 /////
+const useGallery = (() => {
+  return gallery.reverse()
+})()
+/////
+
+/////
+const Contacts = props => {
+  return (
+    <div>
+      <h1>Marina Khakhayeva</h1>
+      <h2 style={{display: 'inline'}}>contact@mkha.info &nbsp;</h2>
+      <h3 style={{display: 'inline-block'}}>
+        <a href='https://github.com/mkhainfo'>[GitHub] &nbsp;</a>
+        <a href='https://www.linkedin.com/in/mkhakhayeva/'>[LinkedIn] &nbsp;</a>
+      </h3>
+    </div>
+  )
+}
+/////
+
+/////
 class InfoCard extends Component {
 
   closeModal = e => {
@@ -24,7 +45,7 @@ class InfoCard extends Component {
   render() {
     return (
       this.props.displayModal ?
-      <figcaption style={styles.card}>
+      <section title={useGallery[this.props.content].title} style={styles.card}>
         <h1 style={styles.title} >
           <button
             aria-label='return to gallery'
@@ -32,15 +53,14 @@ class InfoCard extends Component {
             onClick={this.closeModal}>
             back
           </button>
-          {gallery[this.props.content].title}
+          {useGallery[this.props.content].title}
         </h1>
-        <h2>{gallery[this.props.content].subtitle + ' [' + gallery[this.props.content].year + ']'}</h2>
-        <p> {gallery[this.props.content].description} </p>
-      </figcaption> :
+        <h2>{useGallery[this.props.content].subtitle + ' [' + useGallery[this.props.content].year + ']'}</h2>
+        <p> {useGallery[this.props.content].description} </p>
+      </section> :
       <header role='banner' style={styles.card}>
-        <h1>infoPage</h1>
-        <h2> contact information </h2>
-    </header>
+        <Contacts />
+      </header>
     )
   }
 }
@@ -54,10 +74,10 @@ class Slides extends Component {
       content: '',
       slides: (() => {
         // pushes n '.slide' divs into 'slides' array
-        let slides = [], n = gallery.length
+        let slides = [], n = useGallery.length
         for (let i=0 ; i < n ; i++) {
-          let description = `${gallery[i].title} ${gallery[i].subtitle}`
-          let source = gallery[i].id
+          let description = `${useGallery[i].title} ${useGallery[i].subtitle}`
+          let source = useGallery[i].id
           slides.push(
             <button
               aria-label={description}
@@ -126,20 +146,21 @@ class Modal extends Component {
     super(props)
     this.state = {
       modalTop: 0,
-      contentHeight: 0,
     }
   }
 
-  /*handleScroll = e => {
-    let movement = Math.abs(this.state.modalTop - e.pageY)
+  handleScroll = e => {
+    let content = document.querySelector('#content')
 
-    if ( movement  > window.innerHeight * 0.66
-    && this.props.displayModal ) {
-      //let modal = document.querySelector('#modal')
-      this.props.toggleModal(false)
-      //console.log(modal.style.height)
+    if (this.props.displayModal && content) {
+      let contentHeight = content.clientHeight,
+          movement = this.state.modalTop - e.pageY,
+          margin = window.innerHeight * 0.66
+      if (movement > margin || movement < -1 * (margin + contentHeight)) {
+        this.props.toggleModal(false)
+      }
     }
-  }*/
+  }
 
   adjustTop = () => {
     const nearestTenth = n => {
@@ -155,8 +176,8 @@ class Modal extends Component {
   }
 
   image = () => {
-    let source = gallery[this.props.content].id,
-        type = gallery[this.props.content].type
+    let source = useGallery[this.props.content].id,
+        type = useGallery[this.props.content].type
 
     return (
       <img
@@ -181,11 +202,11 @@ class Modal extends Component {
   render(){
     return (
       this.props.displayModal ?
-        <figure id='modal' style={{...styles.modal}}>
+        <section title={useGallery[this.props.content].title} id='modal' style={{...styles.modal}}>
           <div id='content' style={styles.modalContent}>
             {this.image()}
           </div>
-        </figure> : null
+        </section> : null
     )
   }
 }
