@@ -91,6 +91,14 @@ class InfoCard extends Component {
     this.props.getConent(content)
   }
 
+  link = () => {
+    return (
+      <a href={useGallery[this.props.content].url}><h3>
+        [ play here ]
+      </h3></a>
+    )
+  }
+
   render() {
     return (
       this.props.displayModal ?
@@ -101,6 +109,7 @@ class InfoCard extends Component {
         </h1>
         <h2>{useGallery[this.props.content].subtitle + ' [' + useGallery[this.props.content].year + ']'}</h2>
         <p> {useGallery[this.props.content].description} </p>
+        {useGallery[this.props.content].url? this.link() : null}
         <Prev click={this.prev} />
         <Next click={this.next} />
       </section> :
@@ -221,6 +230,12 @@ class Modal extends Component {
     }
   }
 
+  app = () => {
+    return (
+      <div style={{backgroundColor: 'lime', height: '100px', width: '100px'}}></div>
+    )
+  }
+
   image = () => {
     let source = useGallery[this.props.content].id,
         type = useGallery[this.props.content].type
@@ -250,7 +265,7 @@ class Modal extends Component {
       this.props.displayModal ?
         <section title={useGallery[this.props.content].title} id='modal' style={{...styles.modal}}>
           <div id='content' style={styles.modalContent}>
-            {this.image()}
+            {useGallery[this.props.content].type === 'js' ? this.app() : this.image()}
           </div>
         </section> : null
     )

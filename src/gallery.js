@@ -455,4 +455,13 @@ export const gallery = [
     year: 2017,
     description: '...'
   },
+  {
+    id: 'hit01',
+    type: 'jpg',
+    title: 'hit the ball',
+    subtitle: 'game',
+    year: 2019,
+    description: 'a single player paddle ball game',
+    url: 'https://mkhainfo.github.io/hitTheBall/'
+  },
 ]
