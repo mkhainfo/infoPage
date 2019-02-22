@@ -14,7 +14,7 @@ const importAll = r => {
 importAll(require.context('./gallery', true, /\.(jpe?g|gif)$/))
 /////
 
-/////
+///// reorders the gallery array
 const useGallery = (() => {
   return gallery.reverse()
 })()
@@ -72,7 +72,7 @@ class InfoCard extends Component {
   }
 
   prev = e => {
-    let content = this.props.content
+    let content = parseInt(this.props.content)
     if (content > 0) {
       content -= 1
     } else {
@@ -82,7 +82,7 @@ class InfoCard extends Component {
   }
 
   next = e => {
-    let content = this.props.content
+    let content = parseInt(this.props.content)
     if (content < useGallery.length - 1) {
       content += 1
     } else {

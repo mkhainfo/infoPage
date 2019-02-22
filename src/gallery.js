@@ -2,7 +2,6 @@ export const gallery = [
   {
     id: 'chain01',
     type: 'jpg',
-    //orientation: '',
     title: 'chain smoke',
     subtitle: 'main image',
     year: 2011,
@@ -76,7 +75,7 @@ export const gallery = [
     id: 'bird01',
     type: 'jpg',
     title: 'bird blind',
-    subtitle: '...',
+    subtitle: 'model detail',
     year: 2012,
     description: '...'
   },
@@ -84,7 +83,7 @@ export const gallery = [
     id: 'bird02',
     type: 'jpg',
     title: 'bird blind',
-    subtitle: '...',
+    subtitle: 'model',
     year: 2012,
     description: '...'
   },
@@ -92,7 +91,7 @@ export const gallery = [
     id: 'bird03',
     type: 'jpg',
     title: 'bird blind',
-    subtitle: '...',
+    subtitle: 'structural model',
     year: 2012,
     description: '...'
   },
@@ -100,7 +99,7 @@ export const gallery = [
     id: 'bird04',
     type: 'jpg',
     title: 'bird blind',
-    subtitle: '...',
+    subtitle: 'structural model',
     year: 2012,
     description: '...'
   },
@@ -108,7 +107,7 @@ export const gallery = [
     id: 'bird05',
     type: 'jpg',
     title: 'bird blind',
-    subtitle: '...',
+    subtitle: 'structural detail model',
     year: 2012,
     description: '...'
   },
@@ -116,7 +115,7 @@ export const gallery = [
     id: 'bird06',
     type: 'jpg',
     title: 'bird blind',
-    subtitle: '...',
+    subtitle: 'structural detail model',
     year: 2012,
     description: '...'
   },
@@ -124,7 +123,7 @@ export const gallery = [
     id: 'work01',
     type: 'jpg',
     title: 'live work space',
-    subtitle: '...',
+    subtitle: 'elevation',
     year: 2013,
     description: '...'
   },
@@ -132,7 +131,7 @@ export const gallery = [
     id: 'work02',
     type: 'jpg',
     title: 'live work space',
-    subtitle: '...',
+    subtitle: 'cross section',
     year: 2013,
     description: '...'
   },
@@ -140,7 +139,7 @@ export const gallery = [
     id: 'work03',
     type: 'jpg',
     title: 'live work space',
-    subtitle: '...',
+    subtitle: 'detailed wall section',
     year: 2013,
     description: '...'
   },
@@ -148,7 +147,7 @@ export const gallery = [
     id: 'unit01',
     type: 'jpg',
     title: 'custom masonry unit',
-    subtitle: '...',
+    subtitle: 'sample unit model',
     year: 2013,
     description: '...'
   },
@@ -156,7 +155,7 @@ export const gallery = [
     id: 'unit02',
     type: 'jpg',
     title: 'custom masonry unit',
-    subtitle: '...',
+    subtitle: 'sample wall model',
     year: 2013,
     description: '...'
   },
@@ -164,15 +163,15 @@ export const gallery = [
     id: 'mound01',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'site map',
     year: 2013,
-    description: '...'
+    description: 'Effigy Mounds National Park in Harpers Ferry, IA'
   },
   {
     id: 'mound02',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'cross section and floor plan',
     year: 2013,
     description: '...'
   },
@@ -180,7 +179,7 @@ export const gallery = [
     id: 'mound03',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'interior height diagrams and section perspective',
     year: 2013,
     description: '...'
   },
@@ -188,7 +187,7 @@ export const gallery = [
     id: 'mound04',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'model elevation',
     year: 2013,
     description: '...'
   },
@@ -196,7 +195,7 @@ export const gallery = [
     id: 'mound05',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'model cross section',
     year: 2013,
     description: '...'
   },
@@ -204,7 +203,7 @@ export const gallery = [
     id: 'mound06',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'model detail: light aperture',
     year: 2013,
     description: '...'
   },
@@ -212,7 +211,7 @@ export const gallery = [
     id: 'mound07',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: '...',
+    subtitle: 'model detail: exit',
     year: 2013,
     description: '...'
   },
@@ -220,31 +219,31 @@ export const gallery = [
     id: 'waum01',
     type: 'jpg',
     title: 'parque nodal',
-    subtitle: '...',
+    subtitle: 'concept diagram',
     year: 2013,
-    description: '...'
+    description: 'a proposal for a public park in Santiago, Chile'
   },
   {
     id: 'waum02',
     type: 'jpg',
     title: 'parque nodal',
-    subtitle: '...',
+    subtitle: 'central santiago',
     year: 2013,
-    description: '...'
+    description: 'a diagram tracing major transit routes and nodes in Santiago, Chile, including public transportation and bike paths'
   },
   {
     id: 'waum03',
     type: 'jpg',
     title: 'parque nodal',
-    subtitle: '...',
+    subtitle: 'santiago',
     year: 2013,
-    description: '...'
+    description: 'a map tracing the major transit routes in Santiago, Chile'
   },
   {
     id: 'vr01',
     type: 'gif',
     title: 'alternate mtcc',
-    subtitle: '...',
+    subtitle: 'winter waterfall',
     year: 2014,
     description: '...'
   },
@@ -252,7 +251,7 @@ export const gallery = [
     id: 'vr02',
     type: 'gif',
     title: 'alternate mtcc',
-    subtitle: '...',
+    subtitle: 'asian carp-nado',
     year: 2014,
     description: '...'
   },
@@ -260,7 +259,7 @@ export const gallery = [
     id: 'vr03',
     type: 'gif',
     title: 'alternate mtcc',
-    subtitle: '...',
+    subtitle: 'mies worship society',
     year: 2014,
     description: '...'
   },
@@ -276,7 +275,7 @@ export const gallery = [
     id: 'live02',
     type: 'jpg',
     title: 'living bazaar',
-    subtitle: '...',
+    subtitle: 'component catalog',
     year: 2014,
     description: '...'
   },
@@ -284,7 +283,7 @@ export const gallery = [
     id: 'live03',
     type: 'jpg',
     title: 'living bazaar',
-    subtitle: '...',
+    subtitle: 'concept diagrams',
     year: 2014,
     description: '...'
   },
@@ -292,7 +291,7 @@ export const gallery = [
     id: 'live04',
     type: 'jpg',
     title: 'living bazaar',
-    subtitle: '...',
+    subtitle: 'public space renderings',
     year: 2014,
     description: '...'
   },
@@ -300,7 +299,7 @@ export const gallery = [
     id: 'live05',
     type: 'jpg',
     title: 'living bazaar',
-    subtitle: '...',
+    subtitle: 'living space rendering',
     year: 2014,
     description: '...'
   },
@@ -308,25 +307,25 @@ export const gallery = [
     id: 'detroit01',
     type: 'gif',
     title: 'mapping detroit',
-    subtitle: '...',
+    subtitle: 'density timelapse',
     year: 2014,
-    description: '...'
+    description: 'an animation tracing the changes in building density in Detroit, MI from 1995 to 2004'
   },
   {
     id: 'detroit02',
     type: 'gif',
     title: 'mapping detroit',
-    subtitle: '...',
+    subtitle: 'construction destruction timelapse',
     year: 2014,
-    description: '...'
+    description: 'an animation tracing demolition (red) and construction (blue) in central Detroit, MI from 1995 to 2004'
   },
   {
     id: 'detroit03',
     type: 'jpg',
     title: 'mapping detroit',
-    subtitle: '...',
+    subtitle: 'heat maps',
     year: 2014,
-    description: '...'
+    description: 'heat maps of various housing conditions in Detroit, MI, based on the city\'s open data portal property & parcel map'
   },
   {
     id: '96',
@@ -340,7 +339,7 @@ export const gallery = [
     id: 'park01',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: '...',
+    subtitle: 'structural rendering',
     year: 2016,
     description: '...'
   },
@@ -348,7 +347,7 @@ export const gallery = [
     id: 'park02',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: '...',
+    subtitle: 'day time interior organization',
     year: 2016,
     description: '...'
   },
@@ -356,7 +355,7 @@ export const gallery = [
     id: 'park03',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: '...',
+    subtitle: 'night time interior organization',
     year: 2016,
     description: '...'
   },
@@ -364,7 +363,7 @@ export const gallery = [
     id: 'park04',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: '...',
+    subtitle: 'night time exterior rendering',
     year: 2016,
     description: '...'
   },
@@ -372,7 +371,7 @@ export const gallery = [
     id: 'desert01',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'concept images',
     year: 2017,
     description: '...'
   },
@@ -380,7 +379,7 @@ export const gallery = [
     id: 'desert02',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'site plan',
     year: 2017,
     description: '...'
   },
@@ -388,7 +387,7 @@ export const gallery = [
     id: 'desert03',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'floor plan',
     year: 2017,
     description: '...'
   },
@@ -396,7 +395,7 @@ export const gallery = [
     id: 'desert04',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'cross sections and elevations',
     year: 2017,
     description: '...'
   },
@@ -404,7 +403,7 @@ export const gallery = [
     id: 'desert05',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'exterior rendering',
     year: 2017,
     description: '...'
   },
@@ -412,7 +411,7 @@ export const gallery = [
     id: 'desert06',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'day time interior rendering',
     year: 2017,
     description: '...'
   },
@@ -420,7 +419,7 @@ export const gallery = [
     id: 'desert07',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'night time interior rendering',
     year: 2017,
     description: '...'
   },
@@ -428,7 +427,7 @@ export const gallery = [
     id: 'desert08',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'color interior rendering',
     year: 2017,
     description: '...'
   },
@@ -436,7 +435,7 @@ export const gallery = [
     id: 'desert09',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'model detail',
     year: 2017,
     description: '...'
   },
@@ -444,7 +443,7 @@ export const gallery = [
     id: 'desert10',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'full model',
     year: 2017,
     description: '...'
   },
@@ -452,7 +451,7 @@ export const gallery = [
     id: 'desert11',
     type: 'jpg',
     title: 'desert transplant',
-    subtitle: '...',
+    subtitle: 'model detail',
     year: 2017,
     description: '...'
   },
