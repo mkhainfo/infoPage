@@ -36,10 +36,59 @@ const Contacts = props => {
 /////
 
 /////
+const Back = props => ((
+  <button
+    aria-label='return to gallery'
+    style={styles.button}
+    onClick={props.click}>
+    back
+  </button>
+))
+/////
+
+/////
+const Prev = props => ((
+  <button
+    style={styles.button}
+    onClick={props.click}
+    aria-label='previous entry'>prev</button>
+))
+/////
+
+/////
+const Next = props => ((
+  <button
+    style={styles.button}
+    onClick={props.click}
+    aria-label='next entry'>next</button>
+))
+/////
+
+/////
 class InfoCard extends Component {
 
   closeModal = e => {
     this.props.toggleModal(false)
+  }
+
+  prev = e => {
+    let content = this.props.content
+    if (content > 0) {
+      content -= 1
+    } else {
+      content = useGallery.length - 1
+    }
+    this.props.getConent(content)
+  }
+
+  next = e => {
+    let content = this.props.content
+    if (content < useGallery.length - 1) {
+      content += 1
+    } else {
+      content = 0
+    }
+    this.props.getConent(content)
   }
 
   render() {
@@ -47,16 +96,13 @@ class InfoCard extends Component {
       this.props.displayModal ?
       <section title={useGallery[this.props.content].title} style={styles.card}>
         <h1 style={styles.title} >
-          <button
-            aria-label='return to gallery'
-            style={styles.button}
-            onClick={this.closeModal}>
-            back
-          </button>
+          <Back click={this.closeModal}/>
           {useGallery[this.props.content].title}
         </h1>
         <h2>{useGallery[this.props.content].subtitle + ' [' + useGallery[this.props.content].year + ']'}</h2>
         <p> {useGallery[this.props.content].description} </p>
+        <Prev click={this.prev} />
+        <Next click={this.next} />
       </section> :
       <header role='banner' style={styles.card}>
         <Contacts />
@@ -250,6 +296,7 @@ export default class App extends Component {
       <div id='scroll' style={styles.container}>
 
         <InfoCard content={this.state.modalContent}
+          getConent={this.getContent}
           displayModal={this.state.displayModal}
           toggleModal={this.toggleModal}
           />
