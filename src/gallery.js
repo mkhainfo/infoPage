@@ -203,7 +203,7 @@ export const gallery = [
     id: 'mound06',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: 'model detail: light aperture',
+    subtitle: 'model detail',
     year: 2013,
     description: '...'
   },
@@ -211,7 +211,7 @@ export const gallery = [
     id: 'mound07',
     type: 'jpg',
     title: 'effigy mound chapel',
-    subtitle: 'model detail: exit',
+    subtitle: 'model detail',
     year: 2013,
     description: '...'
   },

@@ -36,12 +36,12 @@ const Contacts = props => {
 /////
 
 /////
-const Back = props => ((
+const Close = props => ((
   <button
     aria-label='return to gallery'
-    style={styles.button}
+    style={styles.altButton}
     onClick={props.click}>
-    back
+    close
   </button>
 ))
 /////
@@ -51,7 +51,9 @@ const Prev = props => ((
   <button
     style={styles.button}
     onClick={props.click}
-    aria-label='previous entry'>prev</button>
+    aria-label='previous entry'>
+    prev
+  </button>
 ))
 /////
 
@@ -93,25 +95,29 @@ class InfoCard extends Component {
 
   link = () => {
     return (
-      <a href={useGallery[this.props.content].url}><h3>
+      <h3><a href={useGallery[this.props.content].url}>
         [ play here ]
-      </h3></a>
+      </a></h3>
     )
   }
 
   render() {
     return (
       this.props.displayModal ?
-      <section title={useGallery[this.props.content].title} style={styles.card}>
-        <h1 style={styles.title} >
-          <Back click={this.closeModal}/>
-          {useGallery[this.props.content].title}
+      <section title={useGallery[this.props.content].title}
+        style={styles.card}>
+        <div style={styles.title} >
+          <Prev click={this.prev} />
+          <Next click={this.next} />
+          <Close click={this.closeModal}/>
+        </div>
+        <h1>
+          {useGallery[this.props.content].title + ' [' + useGallery[this.props.content].year + ']'}
         </h1>
-        <h2>{useGallery[this.props.content].subtitle + ' [' + useGallery[this.props.content].year + ']'}</h2>
+        <h2>{useGallery[this.props.content].subtitle }</h2>
         <p> {useGallery[this.props.content].description} </p>
         {useGallery[this.props.content].url? this.link() : null}
-        <Prev click={this.prev} />
-        <Next click={this.next} />
+
       </section> :
       <header role='banner' style={styles.card}>
         <Contacts />
@@ -162,7 +168,6 @@ class Slides extends Component {
   displayModal = e => {
     this.props.getContent(e.target.id)
     this.props.toggleModal(true)
-    //console.log(e.target.id)
   }
 
   columnStyles = () => {
@@ -209,9 +214,11 @@ class Modal extends Component {
 
     if (this.props.displayModal && content) {
       let contentHeight = content.clientHeight,
-          movement = this.state.modalTop - e.pageY,
+          viewTop = window.scrollY,
+          modalTop = this.state.modalTop,
           margin = window.innerHeight * 0.66
-      if (movement > margin || movement < -1 * (margin + contentHeight)) {
+      if (viewTop < modalTop - margin
+      || viewTop > modalTop + margin + contentHeight) {
         this.props.toggleModal(false)
       }
     }
@@ -263,8 +270,12 @@ class Modal extends Component {
   render(){
     return (
       this.props.displayModal ?
-        <section title={useGallery[this.props.content].title} id='modal' style={{...styles.modal}}>
-          <div id='content' style={styles.modalContent}>
+        <section id='modal'
+          title={useGallery[this.props.content].title}
+
+          style={{...styles.modal}}>
+          <div id='content'
+            style={styles.modalContent}>
             {useGallery[this.props.content].type === 'js' ? this.app() : this.image()}
           </div>
         </section> : null
@@ -281,7 +292,7 @@ export default class App extends Component {
       w: window.innerWidth,
       h: window.innerHeight,
       displayModal: false,
-      modalContent: '',
+      modalContent: null
     }
   }
 
@@ -372,6 +383,16 @@ const styles = {
     backgroundColor: 'white',
   },
 
+  altButton: {
+    marginRight: '1.5vw',
+    padding: '0.2vw 0.5vw 0.2vw 0.5vw',
+    fontWeight: 'bold',
+    borderRadius: '20%',
+    backgroundColor: 'black',
+    color: 'white',
+    alignSelf: 'flex-end'
+  },
+
   slides: {
     display: 'inline-grid',
     gridAutoFlow: 'row',
@@ -380,7 +401,8 @@ const styles = {
 
   thumbnail: {
     height: '100%',
-    width: '100%'
+    width: '100%',
+    pointerEvents: 'none'
   },
 
   modal: {
@@ -393,13 +415,12 @@ const styles = {
   },
 
   modalContent: {
-    //backgroundColor: 'blue',
     flex: '0 1 auto',
     display: 'flex',
     position: 'absolute',
     minWidth: '90vw',
-    //maxWidth: '90vw',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     boxShadow: '0 0 50vh 50vh rgba(255, 255, 255, 0.5)',
     pointerEvents: 'none'
@@ -408,6 +429,7 @@ const styles = {
 
   modalImage: {
     flex: '0 1 auto',
+    display: 'block',
     maxWidth: '100%',
     pointerEvents: 'auto'
   }
