@@ -22,12 +22,73 @@ const useGallery = (() => {
 })()
 /////
 
+///// contact card, displayed with gallery
+class Contacts extends Component {
+
+  state = {
+    name: 'Marina Khakhayeva', //will render
+    email: 'contact@mkha.info', //will render
+    copy: false, // for <Copy />
+    link1: {
+      name: 'GitHub',
+      url: 'https://github.com/mkhainfo'
+    }, //will render
+    link2: {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/mkhakhayeva/'
+    } //will render
+  }
+
+  copy = e => {
+    let text = e.target.innerHTML,
+        toggle = () => this.setState({copy: !this.state.copy}),
+        copy = str => {
+          let body = document.querySelector('body'),
+              input = document.createElement('input')
+          body.append(input)
+          input.value = str
+          //input.focus()
+          input.select()
+          document.execCommand("copy")
+          input.remove()
+        }
+    copy(text)
+    toggle()
+    setTimeout(toggle, 700)
+  }
+
+  render() {
+    return (
+      <div>
+        <h1 style={{marginTop: '20px'}}>
+          { this.state.name }
+        </h1>
+        <div style={styles.title}>
+          <h2 className='copy'
+            onClick={this.copy}>
+            {this.state.email}
+          </h2><Copy copy={this.state.copy} />
+          <h3>
+            <a role='button' href={this.state.link1.url}>
+              [{this.state.link1.name}] &nbsp;
+            </a>
+            <a role='button' href={this.state.link2.url}>
+              [{this.state.link2.name}] &nbsp;
+            </a>
+          </h3>
+        </div>
+      </div>
+    )
+  }
+}
+/////
+
 ///// animation for <Copy />
 const Box = posed.div({
   hidden: {opacity: 0},
   visible: {opacity: 0.8}
 })
-
+// copy is a notification div that pops up when text is copied on click
 const Copy = props => {
   return (
     <Box pose={ props.copy ? 'visible' : 'hidden' }
@@ -38,56 +99,12 @@ const Copy = props => {
 }
 /////
 
-/////
-class Contacts extends Component {
-
-  state = {copy: false}
-
-  popUp = e => {
-    let text = e.target.innerHTML,
-        toggle = () => this.setState({copy: !this.state.copy})
-    this.copy(text)
-    toggle()
-    setTimeout(toggle, 700)
-  }
-
-  copy = str => {
-    let body = document.querySelector('body'),
-        input = document.createElement('input')
-    body.append(input)
-    input.value = str
-    //input.focus()
-    input.select()
-    document.execCommand("copy")
-    input.remove()
-  }
-
-  render() {
-    return (
-      <div>
-        <h1 style={{marginTop: '15px'}}>Marina Khakhayeva</h1>
-        <div style={styles.title}>
-          <h2 className='copy'
-            onClick={this.popUp}>
-            contact@mkha.info
-          </h2><Copy copy={this.state.copy} />
-          <h3 >
-            <a role='button' href='https://github.com/mkhainfo'>[GitHub] &nbsp;</a>
-            <a role='button' href='https://www.linkedin.com/in/mkhakhayeva/'>[LinkedIn] &nbsp;</a>
-          </h3>
-        </div>
-      </div>
-    )
-  }
-}
-/////
-
-///// nav buttons
+///// nav buttons for <InfoCard />
 const Close = props => ((
   <button
-    aria-label='return to gallery'
     style={styles.altButton}
-    onClick={props.click}>
+    onClick={props.click}
+    aria-label='return to gallery'>
     close
   </button>
 ))
@@ -105,7 +122,9 @@ const Next = props => ((
   <button
     style={styles.button}
     onClick={props.click}
-    aria-label='next entry'>next</button>
+    aria-label='next entry'>
+    next
+  </button>
 ))
 /////
 
@@ -139,9 +158,11 @@ class InfoCard extends Component {
 
   link = () => {
     return (
-      <h3><a href={useGallery[this.props.content].url}>
-        [ play here ]
-      </a></h3>
+      <h3>
+        <a href={useGallery[this.props.content].url}>
+          [ play here ]
+        </a>
+      </h3>
     )
   }
 
@@ -397,7 +418,7 @@ export default class App extends Component {
 }
 /////
 
-///// 
+/////
 const styles = {
 
   container: {
@@ -428,8 +449,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
-    lineHeight: 0.25,
-    marginTop: '0'
+    lineHeight: 0.25
   },
 
   copy: {
