@@ -22,6 +22,7 @@ const useGallery = (() => {
 })()
 /////
 
+///// animation for <Copy />
 const Box = posed.div({
   hidden: {opacity: 0},
   visible: {opacity: 0.8}
@@ -29,20 +30,22 @@ const Box = posed.div({
 
 const Copy = props => {
   return (
-    <Box pose={ props.isVisible ? 'visible' : 'hidden' }
+    <Box pose={ props.copy ? 'visible' : 'hidden' }
       style={styles.copy}>
       copy
     </Box>
   )
 }
 /////
+
+/////
 class Contacts extends Component {
 
-  state = {isVisible: false}
+  state = {copy: false}
 
   popUp = e => {
     let text = e.target.innerHTML,
-        toggle = () => this.setState({isVisible: !this.state.isVisible})
+        toggle = () => this.setState({copy: !this.state.copy})
     this.copy(text)
     toggle()
     setTimeout(toggle, 700)
@@ -62,22 +65,24 @@ class Contacts extends Component {
   render() {
     return (
       <div>
-        <h1>Marina Khakhayeva</h1><div style={styles.title}>
-        <h2 className='copy'
-          onClick={this.popUp}>
-          contact@mkha.info
-        </h2><Copy isVisible={this.state.isVisible} />
-        <h3 >
-          <a role='button' href='https://github.com/mkhainfo'>[GitHub] &nbsp;</a>
-          <a role='button' href='https://www.linkedin.com/in/mkhakhayeva/'>[LinkedIn] &nbsp;</a>
-        </h3></div>
+        <h1 style={{marginTop: '15px'}}>Marina Khakhayeva</h1>
+        <div style={styles.title}>
+          <h2 className='copy'
+            onClick={this.popUp}>
+            contact@mkha.info
+          </h2><Copy copy={this.state.copy} />
+          <h3 >
+            <a role='button' href='https://github.com/mkhainfo'>[GitHub] &nbsp;</a>
+            <a role='button' href='https://www.linkedin.com/in/mkhakhayeva/'>[LinkedIn] &nbsp;</a>
+          </h3>
+        </div>
       </div>
     )
   }
 }
 /////
 
-/////
+///// nav buttons
 const Close = props => ((
   <button
     aria-label='return to gallery'
@@ -86,9 +91,7 @@ const Close = props => ((
     close
   </button>
 ))
-/////
 
-/////
 const Prev = props => ((
   <button
     style={styles.button}
@@ -97,9 +100,7 @@ const Prev = props => ((
     prev
   </button>
 ))
-/////
 
-/////
 const Next = props => ((
   <button
     style={styles.button}
@@ -108,7 +109,8 @@ const Next = props => ((
 ))
 /////
 
-/////
+///// contains contact info untl modal is visible
+// when modal is visible, displays modal info
 class InfoCard extends Component {
 
   closeModal = e => {
@@ -146,22 +148,28 @@ class InfoCard extends Component {
   render() {
     return (
       this.props.displayModal ?
+
+      //modal info
       <section title={useGallery[this.props.content].title}
         style={styles.card}>
         <nav role='navigation'
           style={styles.title} >
+          <Close click={this.closeModal}/>
           <Prev click={this.prev} />
           <Next click={this.next} />
-          <Close click={this.closeModal}/>
         </nav>
         <h1>
-          {useGallery[this.props.content].title + ' [' + useGallery[this.props.content].year + ']'}
+          { useGallery[this.props.content].title }&nbsp;
+          [{ useGallery[this.props.content].year }]
         </h1>
-        <h2>{useGallery[this.props.content].subtitle }</h2>
-        <p> {useGallery[this.props.content].description} </p>
-        {useGallery[this.props.content].url? this.link() : null}
-
+        <h2>{ useGallery[this.props.content].subtitle }</h2>
+        <p style={{marginBottom:0}}>
+          { useGallery[this.props.content].description }
+        </p>
+        { useGallery[this.props.content].url? this.link() : null }
       </section> :
+
+      //contact info
       <header role='banner' style={styles.card}>
         <Contacts />
       </header>
@@ -170,25 +178,24 @@ class InfoCard extends Component {
 }
 /////
 
-/////
+///// image gallery
 class Slides extends Component {
   constructor(props){
     super(props)
     this.state = {
       content: '',
       slides: (() => {
-        // pushes n '.slide' divs into 'slides' array
-        let slides = [], n = useGallery.length
-        for (let i=0 ; i < n ; i++) {
+        // pushes a slide into the slides array for each entry in gallery.js
+        let slides = []
+        for (let i=0 ; i < useGallery.length ; i++) {
           let description = `${useGallery[i].title} ${useGallery[i].subtitle}`
           let source = useGallery[i].id
           slides.push(
             <button
-              aria-label={description}
+              aria-label={ description }
               id={i}
               key={i}
-              className={'slide'}
-              onClick={this.displayModal}
+              onClick={ this.displayModal }
               style={{
               backgroundColor: 'white',
               gridColumnEnd: 'span 1',
@@ -198,8 +205,8 @@ class Slides extends Component {
             }}>
             <img
               alt={description}
-              style={styles.thumbnail}
-              src={require('./gallery/thumb/T' + source + '.jpg')}/>
+              style={ styles.thumbnail }
+              src={ require('./gallery/thumb/T' + source + '.jpg') }/>
           </button>
           )
         }
@@ -228,9 +235,6 @@ class Slides extends Component {
       marginTop: gutter,
       marginBottom: margin,
     }
-  }
-
-  componentDidMount() {
   }
 
   render() {
@@ -280,9 +284,14 @@ class Modal extends Component {
     }
   }
 
+  // next feature: run react app in modal
   app = () => {
     return (
-      <div style={{backgroundColor: 'lime', height: '100px', width: '100px'}}></div>
+      <div style={{
+        backgroundColor: 'lime',
+        height: '100px',
+        width: '100px'}}>
+      </div>
     )
   }
 
@@ -319,7 +328,9 @@ class Modal extends Component {
           style={{...styles.modal}}>
           <div id='content'
             style={styles.modalContent}>
-            {useGallery[this.props.content].type === 'js' ? this.app() : this.image()}
+            {useGallery[this.props.content].type === 'js' ?
+              // next feature: run react app in modal
+              this.app() : this.image()}
           </div>
         </section> : null
     )
@@ -386,7 +397,7 @@ export default class App extends Component {
 }
 /////
 
-/////
+///// 
 const styles = {
 
   container: {
@@ -416,20 +427,22 @@ const styles = {
   title: {
     display: 'flex',
     alignItems: 'center',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    lineHeight: 0.25,
+    marginTop: '0'
   },
 
   copy: {
     display:'inline',
-    backgroundColor:'#33cc33',
-    padding: '5px',
+    backgroundColor:'#4db34d',
+    padding: '10px 5px',
     margin: '0 10px',
     color: 'white',
     borderRadius: '20%',
   },
 
   button: {
-    marginRight: '1.5vw',
+    marginLeft: '1.5vw',
     padding: '0.2vw',
     fontWeight: 'bold',
     borderRadius: '20%',
@@ -437,13 +450,12 @@ const styles = {
   },
 
   altButton: {
-    marginLeft: '1.5vw',
+    marginRight: '1.5vw',
     padding: '0.2vw 0.5vw 0.2vw 0.5vw',
     fontWeight: 'bold',
     borderRadius: '20%',
     backgroundColor: 'black',
-    color: 'white',
-    alignSelf: 'flex-end'
+    color: 'white'
   },
 
   slides: {
@@ -486,4 +498,5 @@ const styles = {
     maxWidth: '100%',
     pointerEvents: 'auto'
   }
+
 }

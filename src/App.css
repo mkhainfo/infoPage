@@ -11,8 +11,7 @@ a:hover, .copy:hover {
 	opacity: 0.5;
 	cursor: pointer;
 	}
-/*
-input {
-	display: none;
+
+button:focus {
+	outline: 0;
 }
-*/

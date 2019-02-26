@@ -347,7 +347,7 @@ export const gallery = [
     id: 'park02',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: 'day time interior organization',
+    subtitle: 'day time interior',
     year: 2016,
     description: '...'
   },
@@ -355,7 +355,7 @@ export const gallery = [
     id: 'park03',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: 'night time interior organization',
+    subtitle: 'night time interior',
     year: 2016,
     description: '...'
   },
@@ -363,7 +363,7 @@ export const gallery = [
     id: 'park04',
     type: 'jpg',
     title: 'mixed use parking',
-    subtitle: 'night time exterior rendering',
+    subtitle: 'night time exterior',
     year: 2016,
     description: '...'
   },
