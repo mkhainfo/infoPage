@@ -1,4 +1,6 @@
+
 import React, { Component } from 'react'
+import posed from 'react-pose';
 import './App.css'
 import {gallery} from './gallery.js'
 // gallery is an array of objects
@@ -20,18 +22,58 @@ const useGallery = (() => {
 })()
 /////
 
-/////
-const Contacts = props => {
+const Box = posed.div({
+  hidden: {opacity: 0},
+  visible: {opacity: 0.8}
+})
+
+const Copy = props => {
   return (
-    <div>
-      <h1>Marina Khakhayeva</h1>
-      <h2 style={{display: 'inline'}}>contact@mkha.info &nbsp;</h2>
-      <h3 style={{display: 'inline-block'}}>
-        <a href='https://github.com/mkhainfo'>[GitHub] &nbsp;</a>
-        <a href='https://www.linkedin.com/in/mkhakhayeva/'>[LinkedIn] &nbsp;</a>
-      </h3>
-    </div>
+    <Box pose={ props.isVisible ? 'visible' : 'hidden' }
+      style={styles.copy}>
+      copy
+    </Box>
   )
+}
+/////
+class Contacts extends Component {
+
+  state = {isVisible: false}
+
+  popUp = e => {
+    let text = e.target.innerHTML,
+        toggle = () => this.setState({isVisible: !this.state.isVisible})
+    this.copy(text)
+    toggle()
+    setTimeout(toggle, 700)
+  }
+
+  copy = str => {
+    let body = document.querySelector('body'),
+        input = document.createElement('input')
+    body.append(input)
+    input.value = str
+    //input.focus()
+    input.select()
+    document.execCommand("copy")
+    input.remove()
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Marina Khakhayeva</h1><div style={styles.title}>
+        <h2 className='copy'
+          onClick={this.popUp}>
+          contact@mkha.info
+        </h2><Copy isVisible={this.state.isVisible} />
+        <h3 >
+          <a role='button' href='https://github.com/mkhainfo'>[GitHub] &nbsp;</a>
+          <a role='button' href='https://www.linkedin.com/in/mkhakhayeva/'>[LinkedIn] &nbsp;</a>
+        </h3></div>
+      </div>
+    )
+  }
 }
 /////
 
@@ -106,11 +148,12 @@ class InfoCard extends Component {
       this.props.displayModal ?
       <section title={useGallery[this.props.content].title}
         style={styles.card}>
-        <div style={styles.title} >
+        <nav role='navigation'
+          style={styles.title} >
           <Prev click={this.prev} />
           <Next click={this.next} />
           <Close click={this.closeModal}/>
-        </div>
+        </nav>
         <h1>
           {useGallery[this.props.content].title + ' [' + useGallery[this.props.content].year + ']'}
         </h1>
@@ -215,7 +258,7 @@ class Modal extends Component {
     if (this.props.displayModal && content) {
       let contentHeight = content.clientHeight,
           viewTop = window.scrollY,
-          modalTop = this.state.modalTop,
+          {modalTop} = this.state,
           margin = window.innerHeight * 0.66
       if (viewTop < modalTop - margin
       || viewTop > modalTop + margin + contentHeight) {
@@ -373,6 +416,16 @@ const styles = {
   title: {
     display: 'flex',
     alignItems: 'center',
+    flexWrap: 'wrap'
+  },
+
+  copy: {
+    display:'inline',
+    backgroundColor:'#33cc33',
+    padding: '5px',
+    margin: '0 10px',
+    color: 'white',
+    borderRadius: '20%',
   },
 
   button: {
@@ -384,7 +437,7 @@ const styles = {
   },
 
   altButton: {
-    marginRight: '1.5vw',
+    marginLeft: '1.5vw',
     padding: '0.2vw 0.5vw 0.2vw 0.5vw',
     fontWeight: 'bold',
     borderRadius: '20%',
