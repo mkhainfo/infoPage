@@ -472,7 +472,7 @@ self.__precacheManifest = [
     "url": "/infoPage/static/media/Twork03.eb9fa197.jpg"
   },
   {
-    "revision": "c70131e87ef05b7583bda27ce940ea1e",
+    "revision": "6f09c75bdd985f87aa68aad657771302",
     "url": "/infoPage/index.html"
   }
 ];
