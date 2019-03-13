@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/infoPage/static/media/Fwork02.8138a8cc.jpg"
   },
   {
-    "revision": "5816eedc4e8ea7994c93",
-    "url": "/infoPage/static/css/main.a41101ad.chunk.css"
+    "revision": "56c343ad7ea326911c8a",
+    "url": "/infoPage/static/css/main.ac29eedb.chunk.css"
   },
   {
     "revision": "923a9937f3088ab9f017",
@@ -236,8 +236,8 @@ self.__precacheManifest = [
     "url": "/infoPage/static/media/Fwork01.34145d05.jpg"
   },
   {
-    "revision": "5816eedc4e8ea7994c93",
-    "url": "/infoPage/static/js/main.5816eedc.chunk.js"
+    "revision": "56c343ad7ea326911c8a",
+    "url": "/infoPage/static/js/main.56c343ad.chunk.js"
   },
   {
     "revision": "3eefae5a64d30e1b23de0b168cecc1ee",
@@ -472,7 +472,7 @@ self.__precacheManifest = [
     "url": "/infoPage/static/media/Twork03.eb9fa197.jpg"
   },
   {
-    "revision": "6f09c75bdd985f87aa68aad657771302",
+    "revision": "8e723eae26c4e2a7baa8bc14d7f543a7",
     "url": "/infoPage/index.html"
   }
 ];
