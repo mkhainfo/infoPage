@@ -30,10 +30,14 @@ class Contacts extends Component {
     email: 'contact@mkha.info', //will render
     copy: false, // for <Copy />
     link1: {
+      name: 'mkha.info',
+      url: 'https://mkha.info'
+    }, //will render
+    link2: {
       name: 'GitHub',
       url: 'https://github.com/mkhainfo'
     }, //will render
-    link2: {
+    link3: {
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/mkhakhayeva/'
     } //will render
@@ -64,16 +68,20 @@ class Contacts extends Component {
           { this.state.name }
         </h1>
         <div style={styles.title}>
+          <button style={styles.copyClick}>
           <h2 className='copy'
             onClick={this.copy}>
             {this.state.email}
-          </h2><Copy copy={this.state.copy} />
+          </h2></button><Copy copy={this.state.copy} />
           <h3>
-            <a role='button' href={this.state.link1.url}>
-              [{this.state.link1.name}] &nbsp;
+            <a style={styles.link} role='button' href={this.state.link1.url}>
+              [{this.state.link1.name}]
             </a>
-            <a role='button' href={this.state.link2.url}>
-              [{this.state.link2.name}] &nbsp;
+            <a style={styles.link} role='button' href={this.state.link2.url}>
+              [{this.state.link2.name}]
+            </a>
+            <a style={styles.link} role='button' href={this.state.link3.url}>
+              [{this.state.link3.name}]
             </a>
           </h3>
         </div>
@@ -101,7 +109,7 @@ const Copy = props => {
 
 ///// nav buttons for <InfoCard />
 const Close = props => ((
-  <button
+  <button id='close'
     style={styles.altButton}
     onClick={props.click}
     aria-label='return to gallery'>
@@ -334,6 +342,9 @@ class Modal extends Component {
 
   componentDidUpdate() {
     this.adjustTop()
+    if (document.querySelector('#close')) {
+      document.querySelector('#close').focus()
+    }
   }
 
   componentWillUnmount() {
@@ -349,9 +360,7 @@ class Modal extends Component {
           style={{...styles.modal}}>
           <div id='content'
             style={styles.modalContent}>
-            {useGallery[this.props.content].type === 'js' ?
-              // next feature: run react app in modal
-              this.app() : this.image()}
+            {this.image()}
           </div>
         </section> : null
     )
@@ -452,6 +461,15 @@ const styles = {
     lineHeight: 0.25
   },
 
+  copyClick: {
+    border: 'none',
+    padding: 'none',
+    backgroundColor: 'white',
+    fontSize: '100%',
+    font: 'inherit',
+    margin: 0
+  },
+
   copy: {
     display:'inline',
     backgroundColor:'#4db34d',
@@ -459,6 +477,10 @@ const styles = {
     margin: '0 10px',
     color: 'white',
     borderRadius: '20%',
+  },
+
+  link: {
+    margin: '0 5px'
   },
 
   button: {
